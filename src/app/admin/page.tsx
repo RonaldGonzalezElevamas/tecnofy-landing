@@ -15,31 +15,79 @@ function formatDate(iso: string): string {
   return new Date(iso).toLocaleString("es-CL", { dateStyle: "short", timeStyle: "short" })
 }
 
+function computeStats(orders: OrderData[]) {
+  return {
+    total: orders.length,
+    pending: orders.filter((o) => o.status === "pending").length,
+    confirmed: orders.filter((o) => o.status === "confirmed").length,
+    shipped: orders.filter((o) => o.status === "shipped").length,
+    delivered: orders.filter((o) => o.status === "delivered").length,
+    cancelled: orders.filter((o) => o.status === "cancelled").length,
+    revenue: orders.filter((o) => o.status !== "cancelled").reduce((sum, o) => sum + o.totalPrice, 0),
+  }
+}
+
 export default function AdminPage() {
   const [orders, setOrders] = useState<OrderData[]>([])
-  const [stats, setStats] = useState({ total: 0, pending: 0, confirmed: 0, shipped: 0, delivered: 0, cancelled: 0, revenue: 0 })
+  const [stats, setStats] = useState(computeStats([]))
   const [loading, setLoading] = useState(true)
+  const [source, setSource] = useState<"server" | "local">("server")
 
   useEffect(() => {
-    try {
-      setOrders(getOrders())
-      setStats(getOrderStats())
-    } catch (e) {
-      console.error("Error loading orders:", e)
-    } finally {
+    async function load() {
+      try {
+        const res = await fetch("/api/orders")
+        if (res.ok) {
+          const data = await res.json()
+          if (data.orders?.length) {
+            setOrders(data.orders)
+            setStats(computeStats(data.orders))
+            setSource("server")
+            setLoading(false)
+            return
+          }
+        }
+      } catch {}
+      // Fallback a localStorage
+      try {
+        const local = getOrders()
+        setOrders(local)
+        setStats(computeStats(local))
+        setSource("local")
+      } catch {}
       setLoading(false)
     }
+    load()
   }, [])
 
   const handleStatusChange = useCallback(async (orderId: string, newStatus: string) => {
+    // Actualizar en servidor
+    try {
+      await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "updateStatus", id: orderId, status: newStatus }),
+      })
+    } catch {}
+    // Actualizar en localStorage
     try {
       const { updateOrderStatus } = await import("@/services/order")
       updateOrderStatus(orderId, newStatus as OrderData["status"])
-      setOrders(getOrders())
-      setStats(getOrderStats())
-    } catch (e) {
-      console.error("Error updating order status:", e)
-    }
+    } catch {}
+    // Recargar
+    try {
+      const res = await fetch("/api/orders")
+      if (res.ok) {
+        const data = await res.json()
+        if (data.orders?.length) {
+          setOrders(data.orders)
+          setStats(computeStats(data.orders))
+          return
+        }
+      }
+    } catch {}
+    setOrders(getOrders())
+    setStats(computeStats(getOrders()))
   }, [])
 
   const statusColors: Record<string, string> = {

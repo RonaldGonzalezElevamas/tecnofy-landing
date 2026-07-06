@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server"
 import { sendOrderEmail } from "@/services/email"
+import { addOrder } from "@/lib/store"
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,6 +11,9 @@ export async function POST(req: NextRequest) {
     }
 
     console.log("📦 Nuevo pedido:", JSON.stringify(order, null, 2))
+
+    // Almacenar en servidor para admin 24/7
+    addOrder(order)
 
     const results: { email?: boolean; sheets?: boolean; webhook?: boolean } = {}
 
