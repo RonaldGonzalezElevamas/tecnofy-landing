@@ -1,9 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { getOrders, getOrderStats } from "@/services/order"
 import type { OrderData } from "@/types/checkout"
 import { SITE_CONFIG } from "@/config/site"
+
+const WHATSAPP_NUMBER = SITE_CONFIG.whatsapp.number.replace(/^\+/, "")
 
 function formatPrice(n: number): string {
   return n.toLocaleString("es-CL")
@@ -16,18 +18,29 @@ function formatDate(iso: string): string {
 export default function AdminPage() {
   const [orders, setOrders] = useState<OrderData[]>([])
   const [stats, setStats] = useState({ total: 0, pending: 0, confirmed: 0, shipped: 0, delivered: 0, cancelled: 0, revenue: 0 })
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setOrders(getOrders())
-    setStats(getOrderStats())
+    try {
+      setOrders(getOrders())
+      setStats(getOrderStats())
+    } catch (e) {
+      console.error("Error loading orders:", e)
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
-  async function handleStatusChange(orderId: string, newStatus: OrderData["status"]) {
-    const { updateOrderStatus } = await import("@/services/order")
-    updateOrderStatus(orderId, newStatus)
-    setOrders(getOrders())
-    setStats(getOrderStats())
-  }
+  const handleStatusChange = useCallback(async (orderId: string, newStatus: string) => {
+    try {
+      const { updateOrderStatus } = await import("@/services/order")
+      updateOrderStatus(orderId, newStatus as OrderData["status"])
+      setOrders(getOrders())
+      setStats(getOrderStats())
+    } catch (e) {
+      console.error("Error updating order status:", e)
+    }
+  }, [])
 
   const statusColors: Record<string, string> = {
     pending: "bg-yellow-100 text-yellow-800",
@@ -61,13 +74,18 @@ export default function AdminPage() {
           ))}
         </div>
 
-        {orders.length === 0 ? (
+        {loading ? (
+          <div className="text-center py-20 text-[var(--gray-400)]">Cargando...</div>
+        ) : orders.length === 0 ? (
           <div className="text-center py-20 text-[var(--gray-400)]">
             No hay pedidos aún
           </div>
         ) : (
           <div className="space-y-3">
-            {orders.map((order) => (
+            {orders.map((order) => {
+              const c = order.customer ?? {} as any
+              const s = order.shippingAddress ?? {} as any
+              return (
               <div key={order.id} className="bg-white rounded-2xl p-5 border border-[var(--gray-200)]">
                 <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                   <div>
@@ -87,20 +105,20 @@ export default function AdminPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-[var(--gray-600)] mb-3">
                   <div>
-                    <span className="text-[var(--gray-400)]">Cliente:</span> {order.customer.nombre} {order.customer.apellido}
+                    <span className="text-[var(--gray-400)]">Cliente:</span> {c.nombre} {c.apellido}
                   </div>
                   <div>
-                    <span className="text-[var(--gray-400)]">Teléfono:</span> {order.customer.telefono}
+                    <span className="text-[var(--gray-400)]">Teléfono:</span> {c.telefono}
                   </div>
                   <div>
-                    <span className="text-[var(--gray-400)]">Dirección:</span> {order.shippingAddress.direccion} {order.shippingAddress.numero}, {order.shippingAddress.comuna}, {order.shippingAddress.region}
+                    <span className="text-[var(--gray-400)]">Dirección:</span> {s.direccion} {s.numero}, {s.comuna}, {s.region}
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
                   <select
                     value={order.status}
-                    onChange={(e) => handleStatusChange(order.id, e.target.value as OrderData["status"])}
+                    onChange={(e) => handleStatusChange(order.id, e.target.value)}
                     className="text-xs px-3 py-1.5 rounded-lg border border-[var(--gray-200)] bg-white cursor-pointer"
                   >
                     <option value="pending">Pendiente</option>
@@ -115,12 +133,12 @@ export default function AdminPage() {
                         `🛒 Pedido: ${order.id}\n` +
                         `${order.productName} x${order.quantity}\n` +
                         `Total: $${formatPrice(order.totalPrice)}\n\n` +
-                        `👤 ${order.customer.nombre} ${order.customer.apellido}\n` +
-                        `📞 ${order.customer.telefono}\n` +
-                        `📍 ${order.shippingAddress.direccion} ${order.shippingAddress.numero}, ${order.shippingAddress.comuna}\n` +
+                        `👤 ${c.nombre} ${c.apellido}\n` +
+                        `📞 ${c.telefono}\n` +
+                        `📍 ${s.direccion} ${s.numero}, ${s.comuna}\n` +
                         `📝 ${order.notes || "Sin observaciones"}`
                       )
-                      window.open(`https://wa.me/${SITE_CONFIG.whatsapp.number.replace(/^\+/, "")}?text=${msg}`, "_blank")
+                      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank")
                     }}
                     className="text-xs px-3 py-1.5 rounded-lg bg-[#25D366] text-white font-bold cursor-pointer hover:bg-[#20BD5C] transition-colors"
                   >
@@ -128,7 +146,7 @@ export default function AdminPage() {
                   </button>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         )}
       </div>

@@ -9,10 +9,16 @@ export const metadata: Metadata = {
   description: "Completa tu pedido. Pago contra entrega. Envío gratis a todo Chile.",
 }
 
-export default function CheckoutPage() {
+export default async function CheckoutPage(props: { searchParams: Promise<{ quantity?: string }> }) {
+  const searchParams = await props.searchParams
   const products = getActiveProducts()
   const product = products[0]
   if (!product) redirect("/")
+
+  const initialQuantity = Math.max(1, Math.min(10, parseInt(searchParams.quantity ?? "1", 10) || 1))
+  const isBundle = initialQuantity === 2 && product.price.bundle
+  const unitPrice = isBundle ? Math.round(product.price.bundle!.price / product.price.bundle!.quantity) : product.price.offer
+  const bundleTotalPrice = isBundle ? product.price.bundle!.price : undefined
 
   return (
     <main className="min-h-screen pt-28 pb-16 bg-[var(--gray-100)]">
@@ -33,15 +39,17 @@ export default function CheckoutPage() {
             <div>
               <h2 className="font-bold text-sm">{product.name}</h2>
               <p className="text-[var(--primary)] font-bold text-lg">
-                ${product.price.offer.toLocaleString("es-CL")}
+                ${unitPrice.toLocaleString("es-CL")} {isBundle ? "/u" : ""}
               </p>
             </div>
           </div>
           <CheckoutForm
             productId={product.id}
             productName={product.name}
-            productPrice={product.price.offer}
+            productPrice={unitPrice}
             productSlug={product.slug}
+            initialQuantity={initialQuantity}
+            bundleTotalPrice={bundleTotalPrice}
           />
         </div>
       </div>

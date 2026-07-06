@@ -23,11 +23,11 @@ function saveOrders(orders: OrderData[]): void {
   localStorage.setItem(ORDERS_KEY, JSON.stringify(orders))
 }
 
-export function createOrder(formData: CheckoutFormData, productSlug: string): OrderData {
+export function createOrder(formData: CheckoutFormData, productSlug: string, overrides?: { unitPrice?: number; totalPrice?: number }): OrderData {
   const product = getProductBySlug(productSlug)
-  const unitPrice = product?.price.offer ?? 0
+  const unitPrice = overrides?.unitPrice ?? (product?.price.offer ?? 0)
   const quantity = formData.cantidad
-  const totalPrice = unitPrice * quantity
+  const totalPrice = overrides?.totalPrice ?? (unitPrice * quantity)
 
   const order: OrderData = {
     id: generateId(),

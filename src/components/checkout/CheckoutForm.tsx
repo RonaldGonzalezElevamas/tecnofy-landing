@@ -12,6 +12,8 @@ interface CheckoutFormProps {
   productName: string
   productPrice: number
   productSlug: string
+  initialQuantity?: number
+  bundleTotalPrice?: number
 }
 
 const REGIONES_COMUNA: Record<string, string[]> = {
@@ -103,7 +105,7 @@ const REGIONES_COMUNA: Record<string, string[]> = {
   ],
 }
 
-export default function CheckoutForm({ productId, productName, productPrice, productSlug }: CheckoutFormProps) {
+export default function CheckoutForm({ productId, productName, productPrice, productSlug, initialQuantity = 1, bundleTotalPrice }: CheckoutFormProps) {
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
   const [formData, setFormData] = useState<CheckoutFormData>({
@@ -116,13 +118,14 @@ export default function CheckoutForm({ productId, productName, productPrice, pro
     direccion: "",
     numero: "",
     referencia: "",
-    cantidad: 1,
+    cantidad: initialQuantity,
     observaciones: "",
     aceptaTerminos: false,
   })
   const [errors, setErrors] = useState<CheckoutErrors>({})
 
-  const total = productPrice * formData.cantidad
+  const isBundleQuantity = bundleTotalPrice !== undefined && formData.cantidad === 2
+  const total = isBundleQuantity ? bundleTotalPrice! : (productPrice * formData.cantidad)
 
   const comunas = REGIONES_COMUNA[formData.region] ?? []
 
@@ -150,7 +153,10 @@ export default function CheckoutForm({ productId, productName, productPrice, pro
     try {
       trackBeginCheckout(productId, formData.cantidad, total)
 
-      const order = createOrder(formData, productSlug)
+      const order = createOrder(formData, productSlug, {
+        unitPrice: productPrice,
+        totalPrice: isBundleQuantity ? bundleTotalPrice : total,
+      })
       await submitOrderToServer(order)
 
       router.push(`/gracias?id=${order.id}`)
