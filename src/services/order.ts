@@ -66,7 +66,7 @@ export function createOrder(formData: CheckoutFormData, productSlug: string): Or
   return order
 }
 
-export async function submitOrderToServer(order: OrderData): Promise<{ success: boolean; dropi?: boolean }> {
+export async function submitOrderToServer(order: OrderData): Promise<{ success: boolean; adminUrl?: string }> {
   try {
     const res = await fetch("/api/order", {
       method: "POST",
@@ -75,7 +75,7 @@ export async function submitOrderToServer(order: OrderData): Promise<{ success: 
     })
     if (!res.ok) return { success: false }
     const data = await res.json()
-    return { success: true, dropi: data.dropi }
+    return { success: true, adminUrl: data.adminUrl }
   } catch {
     return { success: false }
   }

@@ -97,17 +97,36 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                <select
-                  value={order.status}
-                  onChange={(e) => handleStatusChange(order.id, e.target.value as OrderData["status"])}
-                  className="text-xs px-3 py-1.5 rounded-lg border border-[var(--gray-200)] bg-white cursor-pointer"
-                >
-                  <option value="pending">Pendiente</option>
-                  <option value="confirmed">Confirmado</option>
-                  <option value="shipped">Enviado</option>
-                  <option value="delivered">Entregado</option>
-                  <option value="cancelled">Cancelado</option>
-                </select>
+                <div className="flex flex-wrap gap-2">
+                  <select
+                    value={order.status}
+                    onChange={(e) => handleStatusChange(order.id, e.target.value as OrderData["status"])}
+                    className="text-xs px-3 py-1.5 rounded-lg border border-[var(--gray-200)] bg-white cursor-pointer"
+                  >
+                    <option value="pending">Pendiente</option>
+                    <option value="confirmed">Confirmado</option>
+                    <option value="shipped">Enviado</option>
+                    <option value="delivered">Entregado</option>
+                    <option value="cancelled">Cancelado</option>
+                  </select>
+                  <button
+                    onClick={() => {
+                      const msg = encodeURIComponent(
+                        `🛒 Pedido: ${order.id}\n` +
+                        `${order.productName} x${order.quantity}\n` +
+                        `Total: $${formatPrice(order.totalPrice)}\n\n` +
+                        `👤 ${order.customer.nombre} ${order.customer.apellido}\n` +
+                        `📞 ${order.customer.telefono}\n` +
+                        `📍 ${order.shippingAddress.direccion} ${order.shippingAddress.numero}, ${order.shippingAddress.comuna}\n` +
+                        `📝 ${order.notes || "Sin observaciones"}`
+                      )
+                      window.open(`https://wa.me/${SITE_CONFIG.whatsapp.number.replace(/^\+/, "")}?text=${msg}`, "_blank")
+                    }}
+                    className="text-xs px-3 py-1.5 rounded-lg bg-[#25D366] text-white font-bold cursor-pointer hover:bg-[#20BD5C] transition-colors"
+                  >
+                    Enviar a mi WhatsApp
+                  </button>
+                </div>
               </div>
             ))}
           </div>
