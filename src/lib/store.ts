@@ -4,7 +4,6 @@ import type { OrderData } from "@/types/checkout"
 
 const DATA_DIR = process.env.DATA_DIR || path.join(process.cwd(), "data")
 const ORDERS_FILE = path.join(DATA_DIR, "orders.json")
-const STORE_NAME = "tecnofy-orders"
 
 function ensureDataDir() {
   if (!fs.existsSync(DATA_DIR)) {
@@ -12,31 +11,38 @@ function ensureDataDir() {
   }
 }
 
-async function getNetlifyStore() {
+async function getRedis() {
+  const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN
+  if (!url || !token) return null
   try {
-    const { getStore } = await import("@netlify/blobs")
-    return getStore(STORE_NAME)
+    const { Redis } = await import("@upstash/redis")
+    return new Redis({ url, token })
   } catch {
     return null
   }
 }
 
-async function readFromNetlify(): Promise<OrderData[]> {
+const REDIS_KEY = "tecnofy:orders"
+
+async function readFromRedis(): Promise<OrderData[]> {
   try {
-    const store = await getNetlifyStore()
-    if (!store) throw new Error("No store")
-    const raw = await store.get("orders", { type: "json" })
-    return Array.isArray(raw) ? raw : []
+    const redis = await getRedis()
+    if (!redis) return []
+    const raw = await redis.get(REDIS_KEY)
+    if (!raw) return []
+    if (typeof raw === "string") return JSON.parse(raw)
+    return raw as OrderData[]
   } catch {
     return []
   }
 }
 
-async function writeToNetlify(orders: OrderData[]): Promise<boolean> {
+async function writeToRedis(orders: OrderData[]): Promise<boolean> {
   try {
-    const store = await getNetlifyStore()
-    if (!store) return false
-    await store.setJSON("orders", orders)
+    const redis = await getRedis()
+    if (!redis) return false
+    await redis.set(REDIS_KEY, JSON.stringify(orders))
     return true
   } catch {
     return false
@@ -59,17 +65,27 @@ function writeToFile(orders: OrderData[]): void {
   try { fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2), "utf-8") } catch {}
 }
 
+function hasRedis(): boolean {
+  return !!(process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL)
+}
+
 export async function readOrders(): Promise<OrderData[]> {
-  if (process.env.NETLIFY) {
-    const fromNetlify = await readFromNetlify()
-    if (fromNetlify.length) return fromNetlify
+  if (hasRedis()) {
+    const fromRedis = await readFromRedis()
+    if (fromRedis.length) return fromRedis
   }
-  return readFromFile()
+  const fromFile = readFromFile()
+  if (fromFile.length) return fromFile
+  // Si Redis está configurado pero vacío, intentamos migrar datos del archivo
+  if (hasRedis() && fromFile.length) {
+    await writeToRedis(fromFile)
+  }
+  return fromFile
 }
 
 export async function writeOrders(orders: OrderData[]): Promise<void> {
-  if (process.env.NETLIFY) {
-    const ok = await writeToNetlify(orders)
+  if (hasRedis()) {
+    const ok = await writeToRedis(orders)
     if (ok) return
   }
   writeToFile(orders)
