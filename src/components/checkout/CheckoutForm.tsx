@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import type { CheckoutFormData, CheckoutErrors } from "@/types/checkout"
-import { createOrder, sendOrderWebhook } from "@/services/order"
+import { createOrder, submitOrderToServer } from "@/services/order"
 import { trackBeginCheckout } from "@/services/analytics"
 import { SITE_CONFIG } from "@/config/site"
 
@@ -151,7 +151,7 @@ export default function CheckoutForm({ productId, productName, productPrice, pro
       trackBeginCheckout(productId, formData.cantidad, total)
 
       const order = createOrder(formData, productSlug)
-      await sendOrderWebhook(order)
+      await submitOrderToServer(order)
 
       router.push(`/gracias?id=${order.id}`)
     } catch {

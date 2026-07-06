@@ -62,47 +62,23 @@ export function createOrder(formData: CheckoutFormData, productSlug: string): Or
   saveOrders(orders)
 
   trackPurchase(order.id, totalPrice, order.productId)
-  sendToIntegrations(order)
 
   return order
 }
 
-async function sendToIntegrations(order: OrderData): Promise<void> {
-  const { createDropiOrder, isDropiConfigured } = await import("@/services/dropi")
-  const { sendOrderToSheets, isSheetsConfigured } = await import("@/services/sheets")
-  const { sendOrderWebhook } = await import("@/services/order")
-
-  const promises: Promise<boolean>[] = []
-
-  if (isDropiConfigured()) {
-    promises.push(
-      createDropiOrder(
-        {
-          nombre: order.customer.nombre,
-          apellido: order.customer.apellido,
-          telefono: order.customer.telefono,
-          email: order.customer.email,
-          region: order.shippingAddress.region,
-          comuna: order.shippingAddress.comuna,
-          direccion: order.shippingAddress.direccion,
-          numero: order.shippingAddress.numero,
-          referencia: order.shippingAddress.referencia,
-          cantidad: order.quantity,
-          observaciones: order.notes,
-          aceptaTerminos: true,
-        } as CheckoutFormData,
-        order.productId
-      ).then((r) => r.success)
-    )
+export async function submitOrderToServer(order: OrderData): Promise<{ success: boolean; dropi?: boolean }> {
+  try {
+    const res = await fetch("/api/order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ order }),
+    })
+    if (!res.ok) return { success: false }
+    const data = await res.json()
+    return { success: true, dropi: data.dropi }
+  } catch {
+    return { success: false }
   }
-
-  if (isSheetsConfigured()) {
-    promises.push(sendOrderToSheets(order))
-  }
-
-  promises.push(sendOrderWebhook(order))
-
-  await Promise.allSettled(promises)
 }
 
 export function getOrders(): OrderData[] {
@@ -139,25 +115,5 @@ export function getOrderStats() {
     revenue: orders
       .filter((o) => o.status !== "cancelled")
       .reduce((sum, o) => sum + o.totalPrice, 0),
-  }
-}
-
-export async function sendOrderWebhook(order: OrderData): Promise<boolean> {
-  const webhookUrl = process.env.NEXT_PUBLIC_ORDER_WEBHOOK_URL
-  if (!webhookUrl) return false
-
-  try {
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        event: "order.created",
-        order,
-        site: "Tecnofy Chile",
-      }),
-    })
-    return response.ok
-  } catch {
-    return false
   }
 }
