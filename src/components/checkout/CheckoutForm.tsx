@@ -151,11 +151,7 @@ export default function CheckoutForm({ productId, productName, productPrice, pro
       trackBeginCheckout(productId, formData.cantidad, total)
 
       const order = createOrder(formData, productSlug)
-      const result = await submitOrderToServer(order)
-
-      if (result.adminUrl) {
-        window.open(result.adminUrl, "_blank")
-      }
+      await submitOrderToServer(order)
 
       router.push(`/gracias?id=${order.id}`)
     } catch {

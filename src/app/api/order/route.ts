@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server"
+import { sendOrderEmail } from "@/services/email"
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,28 +11,12 @@ export async function POST(req: NextRequest) {
 
     console.log("📦 Nuevo pedido:", JSON.stringify(order, null, 2))
 
-    const message = encodeURIComponent(
-      `🛒 *NUEVO PEDIDO* 🛒\n\n` +
-      `ID: ${order.id}\n` +
-      `Producto: ${order.productName}\n` +
-      `Cantidad: ${order.quantity}\n` +
-      `Total: $${order.totalPrice.toLocaleString("es-CL")}\n\n` +
-      `👤 *Cliente*\n` +
-      `Nombre: ${order.customer.nombre} ${order.customer.apellido}\n` +
-      `Teléfono: ${order.customer.telefono}\n` +
-      `Email: ${order.customer.email || "No registrado"}\n\n` +
-      `📍 *Dirección*\n` +
-      `${order.shippingAddress.direccion} ${order.shippingAddress.numero}\n` +
-      `${order.shippingAddress.comuna}, ${order.shippingAddress.region}\n` +
-      `Ref: ${order.shippingAddress.referencia || "Sin referencia"}\n\n` +
-      `📝 ${order.notes || "Sin observaciones"}\n\n` +
-      `→ Admin: tecnofy.cl/admin`
-    )
+    const results: { email?: boolean; sheets?: boolean; webhook?: boolean } = {}
 
-    const adminNumber = process.env.ADMIN_WHATSAPP?.replace?.(/^\+/, "") || "56983956073"
+    // Email al admin
+    results.email = await sendOrderEmail(order)
 
-    const results: { sheets?: boolean; webhook?: boolean } = {}
-
+    // Google Sheets
     const sheetsUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL
     if (sheetsUrl) {
       try {
@@ -44,6 +29,7 @@ export async function POST(req: NextRequest) {
       } catch { results.sheets = false }
     }
 
+    // Webhook externo
     const webhookUrl = process.env.NEXT_PUBLIC_ORDER_WEBHOOK_URL
     if (webhookUrl) {
       try {
@@ -56,11 +42,7 @@ export async function POST(req: NextRequest) {
       } catch { results.webhook = false }
     }
 
-    return Response.json({
-      success: true,
-      adminUrl: `https://wa.me/${adminNumber}?text=${message}`,
-      ...results,
-    })
+    return Response.json({ success: true, ...results })
   } catch {
     return Response.json({ error: "Error al procesar el pedido" }, { status: 500 })
   }
