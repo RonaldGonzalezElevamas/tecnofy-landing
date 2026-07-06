@@ -15,22 +15,92 @@ interface CheckoutFormProps {
 }
 
 const REGIONES_COMUNA: Record<string, string[]> = {
-  "Región Metropolitana": ["Santiago", "Puente Alto", "Maipú", "La Florida", "Las Condes", "Ñuñoa", "Providencia", "Vitacura", "Lo Barnechea", "Peñalolén", "San Miguel", "Macul", "Quilicura", "Renca", "Independencia", "Recoleta", "Cerro Navia", "Conchalí", "Huechuraba", "Estación Central", "Cerrillos", "Pedro Aguirre Cerda", "La Cisterna", "La Granja", "San Ramón", "La Pintana", "El Bosque", "Pudahuel", "Lo Prado", "Quinta Normal"],
-  "Región de Valparaíso": ["Valparaíso", "Viña del Mar", "Concón", "Quilpué", "Villa Alemana", "San Antonio", "Los Andes", "San Felipe", "Quillota", "La Calera"],
-  "Región del Biobío": ["Concepción", "Talcahuano", "Chillán", "Los Ángeles", "Coronel", "Hualpén", "San Pedro de la Paz", "Chiguayante", "Lota"],
-  "Región de La Araucanía": ["Temuco", "Padre Las Casas", "Villarrica", "Pucón", "Angol", "Victoria", "Lautaro"],
-  "Región de Los Lagos": ["Puerto Montt", "Osorno", "Castro", "Ancud", "Puerto Varas", "Llanquihue"],
-  "Región de Coquimbo": ["La Serena", "Coquimbo", "Ovalle", "Illapel", "Vicuña"],
-  "Región de Antofagasta": ["Antofagasta", "Calama", "Tocopilla", "Mejillones", "San Pedro de Atacama"],
-  "Región de Tarapacá": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Pica"],
-  "Región de O'Higgins": ["Rancagua", "San Fernando", "Rengo", "Machalí", "Santa Cruz"],
-  "Región del Maule": ["Talca", "Curicó", "Linares", "Constitución", "Molina", "San Javier"],
-  "Región de Arica y Parinacota": ["Arica", "Putre"],
-  "Región de Atacama": ["Copiapó", "Vallenar", "Huasco", "Caldera", "Chañaral"],
-  "Región de Aysén": ["Coyhaique", "Puerto Aysén", "Chile Chico", "Cochrane"],
-  "Región de Magallanes": ["Punta Arenas", "Puerto Natales", "Porvenir"],
-  "Región de Los Ríos": ["Valdivia", "La Unión", "Río Bueno", "Lanco", "Futrono"],
-  "Región de Ñuble": ["Chillán", "San Carlos", "Quirihue", "Bulnes", "Yungay"],
+  "Región de Arica y Parinacota": [
+    "Arica", "Camarones", "Putre", "General Lagos",
+  ],
+  "Región de Tarapacá": [
+    "Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica",
+  ],
+  "Región de Antofagasta": [
+    "Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama",
+    "Tocopilla", "María Elena",
+  ],
+  "Región de Atacama": [
+    "Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen",
+    "Freirina", "Huasco",
+  ],
+  "Región de Coquimbo": [
+    "La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela",
+    "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado",
+  ],
+  "Región de Valparaíso": [
+    "Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar",
+    "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo",
+    "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales",
+    "San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe",
+    "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué",
+    "Villa Alemana",
+  ],
+  "Región Metropolitana": [
+    "Santiago", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba",
+    "Independencia", "La Cisterna", "La Granja", "La Florida", "La Pintana", "La Reina", "Las Condes",
+    "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda",
+    "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca",
+    "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Colina", "Lampa", "Til Til", "Pirque",
+    "Puente Alto", "San José de Maipo", "Buin", "Calera de Tango", "Paine", "San Bernardo",
+    "Alhué", "Curacaví", "María Pinto", "Melipilla", "San Pedro", "Talagante", "El Monte",
+    "Isla de Maipo", "Padre Hurtado", "Peñaflor",
+  ],
+  "Región del Libertador General Bernardo O'Higgins": [
+    "Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí",
+    "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa",
+    "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones",
+    "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo",
+    "Placilla", "Pumanque", "Santa Cruz",
+  ],
+  "Región del Maule": [
+    "Talca", "Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro",
+    "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén",
+    "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún",
+    "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas",
+  ],
+  "Región de Ñuble": [
+    "Chillán", "Chillán Viejo", "Bulnes", "Cobquecura", "Coelemu", "Coihueco", "El Carmen",
+    "Ninhue", "Ñiquén", "Pemuco", "Pinto", "Portezuelo", "Quillón", "Quirihue", "Ránquil",
+    "San Carlos", "San Fabián", "San Ignacio", "San Nicolás", "Treguaco", "Yungay",
+  ],
+  "Región del Biobío": [
+    "Concepción", "Coronel", "Chiguayante", "Florida", "Hualpén", "Hualqui", "Lota", "Penco",
+    "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Lebu", "Arauco", "Cañete",
+    "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles", "Antuco", "Cabrero",
+    "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo",
+    "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío",
+  ],
+  "Región de La Araucanía": [
+    "Temuco", "Carahue", "Cholchol", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea",
+    "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre Las Casas", "Perquenco",
+    "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica",
+    "Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco",
+    "Purén", "Renaico", "Traiguén", "Victoria",
+  ],
+  "Región de Los Ríos": [
+    "Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli",
+    "La Unión", "Futrono", "Lago Ranco", "Río Bueno",
+  ],
+  "Región de Los Lagos": [
+    "Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Llanquihue", "Los Muermos",
+    "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue",
+    "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puyehue", "Río Negro",
+    "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena",
+  ],
+  "Región de Aysén del General Carlos Ibáñez del Campo": [
+    "Coyhaique", "Lago Verde", "Aysén", "Cisnes", "Guaitecas", "Chile Chico", "Río Ibáñez",
+    "Cochrane", "O'Higgins", "Tortel", "Villa O'Higgins",
+  ],
+  "Región de Magallanes y de la Antártica Chilena": [
+    "Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos", "Antártica",
+    "Porvenir", "Primavera", "Timaukel", "Puerto Natales", "Torres del Paine",
+  ],
 }
 
 export default function CheckoutForm({ productId, productName, productPrice, productSlug }: CheckoutFormProps) {
