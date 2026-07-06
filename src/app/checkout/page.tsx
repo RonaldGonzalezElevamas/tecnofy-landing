@@ -15,7 +15,7 @@ export default async function CheckoutPage(props: { searchParams: Promise<{ quan
   const product = products[0]
   if (!product) redirect("/")
 
-  const initialQuantity = Math.max(1, Math.min(10, parseInt(searchParams.quantity ?? "1", 10) || 1))
+  const initialQuantity = Math.max(1, Math.min(2, parseInt(searchParams.quantity ?? "1", 10) || 1))
   const unitPrice = product.price.offer
   const bundleTotalPrice = initialQuantity === 2 && product.price.bundle ? product.price.bundle.price : undefined
 

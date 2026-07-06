@@ -139,6 +139,7 @@ export default function CheckoutForm({ productId, productName, productPrice, pro
     if (!formData.direccion.trim()) newErrors.direccion = "Ingresa tu dirección"
     if (!formData.numero.trim()) newErrors.numero = "Ingresa el número"
     if (formData.cantidad < 1) newErrors.cantidad = "Mínimo 1 unidad"
+    if (formData.cantidad > 2) newErrors.cantidad = "Máximo 2 unidades por pedido"
     if (!formData.aceptaTerminos) newErrors.aceptaTerminos = "Debes aceptar los términos"
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -309,7 +310,7 @@ export default function CheckoutForm({ productId, productName, productPrice, pro
             <span className="w-10 text-center font-bold text-lg">{formData.cantidad}</span>
             <button
               type="button"
-              onClick={() => updateField("cantidad", Math.min(10, formData.cantidad + 1))}
+              onClick={() => updateField("cantidad", Math.min(2, formData.cantidad + 1))}
               className="w-10 h-10 rounded-xl border border-[var(--gray-200)] flex items-center justify-center font-bold text-lg cursor-pointer hover:bg-[var(--gray-100)] transition-colors"
             >
               +
