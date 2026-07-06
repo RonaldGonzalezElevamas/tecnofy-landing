@@ -153,9 +153,10 @@ export default function CheckoutForm({ productId, productName, productPrice, pro
     try {
       trackBeginCheckout(productId, formData.cantidad, total)
 
+      const actualUnitPrice = isBundleQuantity ? Math.round(bundleTotalPrice! / formData.cantidad) : productPrice
       const order = createOrder(formData, productSlug, {
-        unitPrice: productPrice,
-        totalPrice: isBundleQuantity ? bundleTotalPrice : total,
+        unitPrice: actualUnitPrice,
+        totalPrice: total,
       })
       await submitOrderToServer(order)
 

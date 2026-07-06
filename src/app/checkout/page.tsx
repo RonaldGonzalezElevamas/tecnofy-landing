@@ -16,9 +16,8 @@ export default async function CheckoutPage(props: { searchParams: Promise<{ quan
   if (!product) redirect("/")
 
   const initialQuantity = Math.max(1, Math.min(10, parseInt(searchParams.quantity ?? "1", 10) || 1))
-  const isBundle = initialQuantity === 2 && product.price.bundle
-  const unitPrice = isBundle ? Math.round(product.price.bundle!.price / product.price.bundle!.quantity) : product.price.offer
-  const bundleTotalPrice = isBundle ? product.price.bundle!.price : undefined
+  const unitPrice = product.price.offer
+  const bundleTotalPrice = initialQuantity === 2 && product.price.bundle ? product.price.bundle.price : undefined
 
   return (
     <main className="min-h-screen pt-28 pb-16 bg-[var(--gray-100)]">
@@ -39,7 +38,7 @@ export default async function CheckoutPage(props: { searchParams: Promise<{ quan
             <div>
               <h2 className="font-bold text-sm">{product.name}</h2>
               <p className="text-[var(--primary)] font-bold text-lg">
-                ${unitPrice.toLocaleString("es-CL")} {isBundle ? "/u" : ""}
+                ${unitPrice.toLocaleString("es-CL")}
               </p>
             </div>
           </div>
