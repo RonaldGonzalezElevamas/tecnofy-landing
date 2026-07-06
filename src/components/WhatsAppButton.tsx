@@ -13,12 +13,13 @@ interface WhatsAppButtonProps {
 
 function getWhatsAppUrl(message: string): string {
   const text = encodeURIComponent(message)
-  return `https://wa.me/${SITE_CONFIG.whatsapp.number}?text=${text}`
+  const number = SITE_CONFIG.whatsapp.number.replace(/^\+/, "")
+  return `https://wa.me/${number}?text=${text}`
 }
 
 function openWhatsApp(message: string, productName?: string): void {
   if (productName) trackWhatsAppClick(productName)
-  window.open(getWhatsAppUrl(message), "_blank")
+  window.open(getWhatsAppUrl(message), "_blank", "noopener,noreferrer")
 }
 
 export default function WhatsAppButton({
