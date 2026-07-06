@@ -311,11 +311,13 @@ export default function CheckoutForm({ productId, productName, productPrice, pro
             <button
               type="button"
               onClick={() => updateField("cantidad", Math.min(2, formData.cantidad + 1))}
-              className="w-10 h-10 rounded-xl border border-[var(--gray-200)] flex items-center justify-center font-bold text-lg cursor-pointer hover:bg-[var(--gray-100)] transition-colors"
+              disabled={formData.cantidad >= 2}
+              className="w-10 h-10 rounded-xl border border-[var(--gray-200)] flex items-center justify-center font-bold text-lg cursor-pointer hover:bg-[var(--gray-100)] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               +
             </button>
           </div>
+          <p className="text-[0.65rem] text-[var(--gray-400)] mt-1">Máx. 2 unidades por pedido</p>
           {errors.cantidad && <p className="text-red-500 text-xs mt-1">{errors.cantidad}</p>}
         </div>
         <div className="flex flex-col justify-end">
