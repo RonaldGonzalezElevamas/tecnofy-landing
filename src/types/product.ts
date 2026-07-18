@@ -51,6 +51,11 @@ export interface ProductSEO {
   ogImage?: string
 }
 
+export interface HeroTrustBadge {
+  icon: string
+  label: string
+}
+
 export interface Product {
   id: string
   slug: string
@@ -76,4 +81,12 @@ export interface Product {
   seo: ProductSEO
   createdAt: string
   updatedAt: string
+  heroTitle?: string
+  heroTrustBadges?: HeroTrustBadge[]
+  solutionLabel?: string
+  solutionTitle?: string
+  solutionImageLabel?: string
+  galleryTitle?: string
+  galleryDescription?: string
+  finalCtaTitle?: string
 }

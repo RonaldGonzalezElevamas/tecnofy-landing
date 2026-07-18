@@ -29,9 +29,10 @@ export default function Hero({ product }: HeroProps) {
 
             <Countdown />
 
-            <h1 className="text-[1.65rem] sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-extrabold leading-tight mb-3">
-              ¿Cuello y hombros <span className="text-[var(--primary)]">destruidos</span> por el estrés?
-            </h1>
+            <h1
+              className="text-[1.65rem] sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-extrabold leading-tight mb-3"
+              dangerouslySetInnerHTML={{ __html: product.heroTitle ?? "¿Cuello y hombros <span class=\"text-[var(--primary)]\">destruidos</span> por el estrés?" }}
+            />
 
             <p className="text-lg text-[var(--gray-500)] max-w-lg mx-auto md:mx-0 mb-6">
               {product.shortDescription}
@@ -122,22 +123,17 @@ export default function Hero({ product }: HeroProps) {
             </div>
 
             <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-4">
-              <span className="flex items-center gap-1.5 text-xs text-[var(--gray-500)]">
-                <svg className="w-3.5 h-3.5 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-                Alivio 4D
-              </span>
-              <span className="flex items-center gap-1.5 text-xs text-[var(--gray-500)]">
-                <svg className="w-3.5 h-3.5 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="12" cy="9" r="2"/></svg>
-                Con calor
-              </span>
-              <span className="flex items-center gap-1.5 text-xs text-[var(--gray-500)]">
-                <svg className="w-3.5 h-3.5 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                USB Recargable
-              </span>
-              <span className="flex items-center gap-1.5 text-xs text-[var(--gray-500)]">
-                <svg className="w-3.5 h-3.5 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                Ultra silencioso
-              </span>
+              {(product.heroTrustBadges ?? [
+                { icon: "Alivio 4D", label: "Alivio 4D" },
+                { icon: "Con calor", label: "Con calor" },
+                { icon: "USB Recargable", label: "USB Recargable" },
+                { icon: "Ultra silencioso", label: "Ultra silencioso" },
+              ]).map((badge) => (
+                <span key={badge.label} className="flex items-center gap-1.5 text-xs text-[var(--gray-500)]">
+                  <svg className="w-3.5 h-3.5 text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 13l4 4L19 7"/></svg>
+                  {badge.label}
+                </span>
+              ))}
             </div>
           </div>
 

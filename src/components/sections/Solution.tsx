@@ -18,17 +18,18 @@ export default function Solution({ product }: SolutionProps) {
                 loading="lazy"
               />
               <div className="text-[var(--gray-400)] text-xs mt-3">
-                Alivio 4D · Calor · Portátil
+                {product.solutionImageLabel ?? "Alivio 4D · Calor · Portátil"}
               </div>
             </div>
           </div>
           <div className="order-1 md:order-2">
             <p className="text-xs font-bold text-[var(--primary)] uppercase tracking-widest mb-2">
-              La Solución
+              {product.solutionLabel ?? "La Solución"}
             </p>
-            <h2 className="text-[1.5rem] sm:text-[1.75rem] md:text-[2.25rem] font-extrabold leading-tight mb-1">
-              Alivia el dolor muscular <span className="text-[var(--primary)]">donde y cuando quieras</span>
-            </h2>
+            <h2
+              className="text-[1.5rem] sm:text-[1.75rem] md:text-[2.25rem] font-extrabold leading-tight mb-1"
+              dangerouslySetInnerHTML={{ __html: product.solutionTitle ?? "Alivia el dolor muscular <span class=\"text-[var(--primary)]\">donde y cuando quieras</span>" }}
+            />
             <div className="space-y-4 mt-6">
               {product.features.map((feature, i) => (
                 <div key={i} className="flex gap-4">

@@ -14,10 +14,10 @@ export default function Gallery({ product }: GalleryProps) {
           Galería
         </p>
         <h2 className="text-[1.75rem] md:text-[2.25rem] font-extrabold leading-tight mb-2">
-          Así es tu solución anti-dolor
+          {product.galleryTitle ?? "Así es tu solución anti-dolor"}
         </h2>
         <p className="text-[var(--gray-500)] max-w-xl mx-auto mb-10">
-          Cada detalle está diseñado para darte el alivio muscular que necesitas
+          {product.galleryDescription ?? "Cada detalle está diseñado para darte el alivio muscular que necesitas"}
         </p>
       </div>
       <div className="container mx-auto px-4">

@@ -4,18 +4,20 @@ import WhatsAppButton from "@/components/WhatsAppButton"
 
 interface FinalCTAProps {
   productName?: string
+  finalCtaTitle?: string
 }
 
-export default function FinalCTA({ productName }: FinalCTAProps) {
+export default function FinalCTA({ productName, finalCtaTitle }: FinalCTAProps) {
   return (
     <section
       className="bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] text-white py-16 md:py-24 text-center"
       id="pedir"
     >
       <div className="container mx-auto px-4">
-        <h2 className="text-[1.75rem] md:text-[2.75rem] font-extrabold leading-tight mb-4">
-          ¿Listo para relajar tus músculos<br />sin depender de nadie?
-        </h2>
+        <h2
+          className="text-[1.75rem] md:text-[2.75rem] font-extrabold leading-tight mb-4"
+          dangerouslySetInnerHTML={{ __html: finalCtaTitle ?? "¿Listo para relajar tus músculos<br/>sin depender de nadie?" }}
+        />
         <p className="text-lg opacity-80 max-w-lg mx-auto mb-8 leading-relaxed">
           Pide ahora y paga solo cuando recibas el producto en tu casa. Sin riesgos, sin tarjetas, sin complicaciones.
         </p>
