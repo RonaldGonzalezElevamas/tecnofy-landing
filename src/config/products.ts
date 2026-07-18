@@ -151,8 +151,6 @@ const products: Product[] = [
     gallery: [
       { src: "/images/minicamara/detail-1.webp", alt: "Cámara compacta", label: "Ultra compacta" },
       { src: "/images/minicamara/detail-2.webp", alt: "Visión nocturna", label: "Visión nocturna HD" },
-      { src: "/images/minicamara/detail-3.webp", alt: "Detección de movimiento", label: "Detección de movimiento" },
-      { src: "/images/minicamara/solution.webp", alt: "App gratuita", label: "App gratuita incluida" },
     ],
     benefits: [
       { text: "Ultra compacta y discreta" },

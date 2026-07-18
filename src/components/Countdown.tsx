@@ -6,7 +6,7 @@ export default function Countdown() {
   const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 })
 
   useEffect(() => {
-    const end = new Date("2026-07-12T23:59:00-04:00")
+    const end = new Date("2026-07-31T23:59:00-04:00")
 
     function update() {
       const diff = Math.max(0, end.getTime() - Date.now())
