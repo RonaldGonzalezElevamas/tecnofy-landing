@@ -5,9 +5,10 @@ import WhatsAppButton from "@/components/WhatsAppButton"
 interface FinalCTAProps {
   productName?: string
   finalCtaTitle?: string
+  productSlug?: string
 }
 
-export default function FinalCTA({ productName, finalCtaTitle }: FinalCTAProps) {
+export default function FinalCTA({ productName, finalCtaTitle, productSlug }: FinalCTAProps) {
   return (
     <section
       className="bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] text-white py-16 md:py-24 text-center"
@@ -24,7 +25,7 @@ export default function FinalCTA({ productName, finalCtaTitle }: FinalCTAProps) 
         <div className="flex flex-col items-center gap-4">
           <div className="max-w-md w-full space-y-3">
             <Link
-              href="/checkout"
+              href={productSlug ? `/checkout?product=${productSlug}` : "/checkout"}
               className="inline-flex items-center justify-center gap-2 font-bold px-8 py-4 text-lg rounded-2xl bg-white text-[var(--primary)] hover:bg-gray-100 active:scale-[0.98] transition-all duration-200 w-full"
             >
               Comprar ahora

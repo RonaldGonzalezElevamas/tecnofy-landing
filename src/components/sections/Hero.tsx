@@ -85,7 +85,7 @@ export default function Hero({ product }: HeroProps) {
             <div className="flex flex-col sm:flex-row gap-3 mt-4">
               <WhatsAppButton variant="large" productName={product.name} />
               <Link
-                href="/checkout"
+                href={`/checkout?product=${product.slug}`}
                 className="inline-flex items-center justify-center gap-2 font-bold px-8 py-4 text-lg rounded-2xl bg-[var(--primary)] text-white hover:bg-[var(--primary-dark)] active:scale-[0.98] transition-all duration-200"
               >
                 Comprar ahora

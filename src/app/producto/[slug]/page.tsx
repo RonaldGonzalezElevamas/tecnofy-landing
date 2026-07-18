@@ -80,7 +80,7 @@ export default async function ProductPage({ params }: PageProps) {
       <Testimonials product={product} />
       <Offer product={product} />
       <Urgency product={product} />
-      <FinalCTA productName={product.name} finalCtaTitle={product.finalCtaTitle} />
+      <FinalCTA productName={product.name} finalCtaTitle={product.finalCtaTitle} productSlug={product.slug} />
       <FAQ product={product} />
     </main>
   )

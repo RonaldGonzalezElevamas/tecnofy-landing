@@ -43,7 +43,7 @@ export default function Home() {
       <Testimonials product={featured} />
       <Offer product={featured} />
       <Urgency product={featured} />
-      <FinalCTA productName={featured.name} finalCtaTitle={featured.finalCtaTitle} />
+      <FinalCTA productName={featured.name} finalCtaTitle={featured.finalCtaTitle} productSlug={featured.slug} />
       <FAQ product={featured} />
 
       {products.length > 1 && (

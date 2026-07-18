@@ -25,15 +25,6 @@ export default function Testimonials({ product }: TestimonialsProps) {
               key={i}
               className="bg-white rounded-2xl overflow-hidden border border-[var(--gray-200)] shadow-sm"
             >
-              <div className="aspect-[4/3] bg-[var(--gray-100)] overflow-hidden">
-                {t.avatar ? (
-                  <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-[var(--gray-300)]">
-                    {t.name.charAt(0)}
-                  </div>
-                )}
-              </div>
               <div className="p-5">
                 <div className="flex gap-0.5 mb-2 text-sm">{Array(t.rating).fill("⭐").join("")}</div>
                 <p className="text-sm text-[var(--gray-600)] leading-relaxed mb-3">

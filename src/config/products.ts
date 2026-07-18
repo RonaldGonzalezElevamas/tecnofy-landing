@@ -193,9 +193,9 @@ const products: Product[] = [
       { label: "Tamaño", value: "Ultra compacta", icon: "📏" },
     ],
     testimonials: [
-      { name: "Jorge R.", location: "Santiago", rating: 5, text: "La instalé en mi local y ahora puedo revisar todo desde el celular. La visión nocturna es excelente, se ve todo clarito.", avatar: "/img/cliente-1.webp" },
-      { name: "María P.", location: "Valparaíso", rating: 5, text: "Mi preocupación era la bodega. Con esta cámara la monitoreo desde la casa y me avisa cuando hay movimiento. Super práctica.", avatar: "/img/cliente-2.webp" },
-      { name: "Roberto L.", location: "Concepción", rating: 5, text: "Compré 2: una para el garage y otra para el patio. La app es súper fácil y el envío llegó rápido. Muy recomendada.", avatar: "/img/cliente-3.webp" },
+      { name: "Jorge R.", location: "Santiago", rating: 5, text: "La instalé en mi local y ahora puedo revisar todo desde el celular. La visión nocturna es excelente, se ve todo clarito." },
+      { name: "María P.", location: "Valparaíso", rating: 5, text: "Mi preocupación era la bodega. Con esta cámara la monitoreo desde la casa y me avisa cuando hay movimiento. Super práctica." },
+      { name: "Roberto L.", location: "Concepción", rating: 5, text: "Compré 2: una para el garage y otra para el patio. La app es súper fácil y el envío llegó rápido. Muy recomendada." },
     ],
     faqs: [
       { question: "¿Necesita internet fijo o solo WiFi?", answer: "Solo necesita conexión WiFi. No requiere cable de datos ni internet fijo. Se conecta a tu red WiFi hogareña o de tu negocio y listo." },
@@ -247,8 +247,7 @@ const products: Product[] = [
     videoDemoTitle: "Míralo en acción",
     videoDemoDescription: "Un video vale más que mil fotos — ve lo fácil que es usarla",
     videoDemo: [
-      { src: "/video/minicamara/demo-1.mp4", poster: "/video/minicamara/demo-1.gif", label: "📹 Instalación rápida" },
-      { src: "/video/minicamara/demo-2.mp4", poster: "", label: "👁️ Visión nocturna en tiempo real" },
+      { src: "/video/minicamara/demo-1.mp4", poster: "/video/minicamara/demo-1.gif", label: "📹 Instalación y uso rápido" },
     ],
   },
 ]
