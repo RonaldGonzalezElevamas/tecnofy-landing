@@ -19,24 +19,28 @@ export default function Testimonials({ product }: TestimonialsProps) {
         </p>
       </div>
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {product.testimonials.map((t, i) => (
             <div
               key={i}
-              className="bg-[var(--gray-100)] rounded-2xl p-6 border border-[var(--gray-200)]"
+              className="bg-white rounded-2xl overflow-hidden border border-[var(--gray-200)] shadow-sm"
             >
-              <div className="flex gap-0.5 mb-3 text-lg">{Array(t.rating).fill("⭐").join("")}</div>
-              <p className="text-sm text-[var(--gray-600)] leading-relaxed mb-4">
-                &ldquo;{t.text}&rdquo;
-              </p>
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[var(--primary)]/15 flex items-center justify-center text-xs font-bold text-[var(--primary)]">
-                  {t.name.charAt(0)}
-                </div>
-                <div>
-                  <div className="text-[0.8125rem] font-semibold">{t.name}</div>
-                  <div className="text-[0.6875rem] text-[var(--gray-400)]">{t.location}</div>
-                </div>
+              <div className="aspect-[4/3] bg-[var(--gray-100)] overflow-hidden">
+                {t.avatar ? (
+                  <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-[var(--gray-300)]">
+                    {t.name.charAt(0)}
+                  </div>
+                )}
+              </div>
+              <div className="p-5">
+                <div className="flex gap-0.5 mb-2 text-sm">{Array(t.rating).fill("⭐").join("")}</div>
+                <p className="text-sm text-[var(--gray-600)] leading-relaxed mb-3">
+                  &ldquo;{t.text}&rdquo;
+                </p>
+                <div className="font-semibold text-sm">{t.name}</div>
+                <div className="text-[0.6875rem] text-[var(--gray-400)]">{t.location}</div>
               </div>
             </div>
           ))}

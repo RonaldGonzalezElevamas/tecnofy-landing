@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation"
-import { getActiveProducts } from "@/config/products"
+import { getActiveProducts, getProductBySlug } from "@/config/products"
 import { SITE_CONFIG } from "@/config/site"
 import CheckoutForm from "@/components/checkout/CheckoutForm"
 import type { Metadata } from "next"
@@ -9,15 +9,20 @@ export const metadata: Metadata = {
   description: "Completa tu pedido. Pago contra entrega. Envío gratis a todo Chile.",
 }
 
-export default async function CheckoutPage(props: { searchParams: Promise<{ quantity?: string }> }) {
+export default async function CheckoutPage(props: { searchParams: Promise<{ quantity?: string; product?: string }> }) {
   const searchParams = await props.searchParams
   const products = getActiveProducts()
-  const product = products[0]
+
+  const product = searchParams.product
+    ? getProductBySlug(searchParams.product) ?? products[0]
+    : products[0]
+
   if (!product) redirect("/")
 
   const initialQuantity = Math.max(1, Math.min(2, parseInt(searchParams.quantity ?? "1", 10) || 1))
   const unitPrice = product.price.offer
-  const bundleTotalPrice = initialQuantity === 2 && product.price.bundle ? product.price.bundle.price : undefined
+  const bundlePrice = product.price.bundle?.price ?? null
+  const bundleQty = product.price.bundle?.quantity ?? null
 
   return (
     <main className="min-h-screen pt-28 pb-16 bg-[var(--gray-100)]">
@@ -48,7 +53,8 @@ export default async function CheckoutPage(props: { searchParams: Promise<{ quan
             productPrice={unitPrice}
             productSlug={product.slug}
             initialQuantity={initialQuantity}
-            bundleTotalPrice={bundleTotalPrice}
+            bundlePrice={bundlePrice}
+            bundleQty={bundleQty}
           />
         </div>
       </div>

@@ -7,6 +7,7 @@ import Benefits from "@/components/sections/Benefits"
 import Gallery from "@/components/sections/Gallery"
 import HowItWorks from "@/components/sections/HowItWorks"
 import Specs from "@/components/sections/Specs"
+import VideoDemo from "@/components/sections/VideoDemo"
 import Testimonials from "@/components/sections/Testimonials"
 import Offer from "@/components/sections/Offer"
 import Urgency from "@/components/sections/Urgency"
@@ -75,6 +76,7 @@ export default async function ProductPage({ params }: PageProps) {
       <Gallery product={product} />
       <HowItWorks product={product} />
       <Specs product={product} />
+      <VideoDemo />
       <Testimonials product={product} />
       <Offer product={product} />
       <Urgency product={product} />

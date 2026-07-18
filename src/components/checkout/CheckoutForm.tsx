@@ -13,7 +13,8 @@ interface CheckoutFormProps {
   productPrice: number
   productSlug: string
   initialQuantity?: number
-  bundleTotalPrice?: number
+  bundlePrice: number | null
+  bundleQty: number | null
 }
 
 const REGIONES_COMUNA: Record<string, string[]> = {
@@ -105,7 +106,7 @@ const REGIONES_COMUNA: Record<string, string[]> = {
   ],
 }
 
-export default function CheckoutForm({ productId, productName, productPrice, productSlug, initialQuantity = 1, bundleTotalPrice }: CheckoutFormProps) {
+export default function CheckoutForm({ productId, productName, productPrice, productSlug, initialQuantity = 1, bundlePrice, bundleQty }: CheckoutFormProps) {
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
   const [formData, setFormData] = useState<CheckoutFormData>({
@@ -124,8 +125,8 @@ export default function CheckoutForm({ productId, productName, productPrice, pro
   })
   const [errors, setErrors] = useState<CheckoutErrors>({})
 
-  const isBundleQuantity = bundleTotalPrice !== undefined && formData.cantidad === 2
-  const total = isBundleQuantity ? bundleTotalPrice! : (productPrice * formData.cantidad)
+  const isBundleQuantity = bundlePrice !== null && bundleQty !== null && formData.cantidad === bundleQty
+  const total = isBundleQuantity ? bundlePrice : (productPrice * formData.cantidad)
 
   const comunas = REGIONES_COMUNA[formData.region] ?? []
 
@@ -154,7 +155,7 @@ export default function CheckoutForm({ productId, productName, productPrice, pro
     try {
       trackBeginCheckout(productId, formData.cantidad, total)
 
-      const actualUnitPrice = isBundleQuantity ? Math.round(bundleTotalPrice! / formData.cantidad) : productPrice
+      const actualUnitPrice = isBundleQuantity ? Math.round(bundlePrice / formData.cantidad) : productPrice
       const order = createOrder(formData, productSlug, {
         unitPrice: actualUnitPrice,
         totalPrice: total,
@@ -324,8 +325,13 @@ export default function CheckoutForm({ productId, productName, productPrice, pro
           <div className="bg-[var(--gray-100)] rounded-xl p-4">
             <div className="flex justify-between text-sm mb-1">
               <span>{productName} x{formData.cantidad}</span>
-              <span>${(productPrice * formData.cantidad).toLocaleString("es-CL")}</span>
+              <span>${total.toLocaleString("es-CL")}</span>
             </div>
+            {isBundleQuantity && (
+              <div className="text-[0.65rem] text-[var(--accent-dark)] font-semibold text-right -mt-1 mb-1">
+                Promo 2x $59.990 ($29.995 c/u)
+              </div>
+            )}
             <div className="flex justify-between text-sm">
               <span>{SITE_CONFIG.shipping.freeLabel}</span>
               <span className="text-[var(--accent-dark)] font-semibold">GRATIS</span>

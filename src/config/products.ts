@@ -8,7 +8,7 @@ const products: Product[] = [
     shortDescription: "Alivia cuello, hombros y espalda al instante con tecnología de amasado 4D y calor. Inalámbrico, recargable y ultra silencioso.",
     longDescription: "Adiós a la tensión muscular. Este masajeador portátil combina 4 dedos de amasado que simulan la presión de manos humanas con calor terapéutico para eliminar contracturas, desinflamar tejidos y relajar los músculos más profundos. Diseñado para cuello, hombros, espalda, piernas y pies. Inalámbrico, recargable por USB y tan silencioso que lo puedes usar mientras trabajas o ves TV.",
     price: {
-      normal: 69990,
+      normal: 45000,
       offer: 34990,
       bundle: {
         quantity: 2,
@@ -68,10 +68,9 @@ const products: Product[] = [
       { label: "Portabilidad", value: "Inalámbrico / Compacto", icon: "🎒" },
     ],
     testimonials: [
-      { name: "Carlos M.", location: "Santiago", rating: 5, text: "Trabajo en oficina 9 horas y siempre terminaba con el cuello tieso. Esto me cambió la vida, lo uso todos los días." },
-      { name: "Andrea G.", location: "Valparaíso", rating: 5, text: "Pensé que era otro producto más pero el calor y los dedos 4D son increíbles. Se siente como un masaje real." },
-      { name: "Pedro L.", location: "Concepción", rating: 5, text: "Lo compré para mi papá que tiene contracturas crónicas y le encantó. Ahora lo usa después de cada jornada." },
-      { name: "Camila R.", location: "Antofagasta", rating: 5, text: "Ideal para después del gym. Lo uso en los hombros y piernas. Bien potente y el calor es un plus enorme." },
+      { name: "Andrea G.", location: "Valparaíso", rating: 5, text: "Pensé que era otro producto más pero el calor y los dedos 4D son increíbles. Se siente como un masaje real.", avatar: "/img/cliente-1.webp" },
+      { name: "Carlos M.", location: "Santiago", rating: 5, text: "Trabajo en oficina 9 horas y siempre terminaba con el cuello tieso. Esto me cambió la vida, lo uso todos los días.", avatar: "/img/cliente-2.webp" },
+      { name: "Camila R.", location: "Antofagasta", rating: 5, text: "Ideal para después del gym. Lo uso en los hombros y piernas. Bien potente y el calor es un plus enorme.", avatar: "/img/cliente-3.webp" },
     ],
     faqs: [
       { question: "¿Cómo alivia el dolor muscular?", answer: "Utiliza 4 puntos de presión que simulan el movimiento de amasado de manos humanas, combinado con calor suave. No es una simple vibración: realmente presiona y trabaja los músculos tensos." },
@@ -103,6 +102,108 @@ const products: Product[] = [
     },
     createdAt: "2026-06-01",
     updatedAt: "2026-07-05",
+  },
+  {
+    id: "minicamara-wifi",
+    slug: "mini-camara-wifi",
+    name: "Mini Cámara WiFi de Seguridad HD 1080p",
+    shortDescription: "Protege tu hogar o negocio con esta cámara compacta WiFi. Visión nocturna, detección de movimiento y app gratuita.",
+    longDescription: "Mini cámara WiFi de seguridad HD 1080p con visión nocturna por infrarrojo y detección de movimiento. Monitorea tu hogar, local comercial o bodega en tiempo real desde la app gratuita en tu celular. Ultra compacta, se instala en segundos y se conecta a tu red WiFi sin cables. Batería de larga duración o conexión directa a corriente para uso 24/7. Incluye garantía de 3 meses.",
+    price: {
+      normal: 39990,
+      offer: 24990,
+      bundle: {
+        quantity: 2,
+        price: 40000,
+        label: "2x $40.000 (ahorras $9.980)",
+      },
+    },
+    category: "seguridad",
+    brand: "Tecnofy",
+    sku: "TEC-CAM-001",
+    images: [
+      { src: "/images/minicamara/hero.webp", alt: "Mini Cámara WiFi de Seguridad Tecnofy" },
+      { src: "/images/minicamara/offer.webp", alt: "Mini Cámara WiFi vista frontal" },
+    ],
+    gallery: [
+      { src: "/images/minicamara/detail-1.webp", alt: "Cámara compacta", label: "Ultra compacta" },
+      { src: "/images/minicamara/detail-2.webp", alt: "Visión nocturna", label: "Visión nocturna HD" },
+      { src: "/images/minicamara/detail-3.webp", alt: "Detección de movimiento", label: "Detección de movimiento" },
+      { src: "/images/minicamara/solution.webp", alt: "App gratuita", label: "App gratuita incluida" },
+    ],
+    benefits: [
+      { text: "Ultra compacta y discreta" },
+      { text: "Visión nocturna infrarrojo" },
+      { text: "Detección de movimiento" },
+      { text: "App gratuita (iOS / Android)" },
+      { text: "WiFi sin cables" },
+      { text: "Instalación en segundos" },
+    ],
+    features: [
+      {
+        title: "Vigilancia HD desde tu celular",
+        description: "Calidad 1080p con visión nocturna por infrarrojo. Ve todo claramente en tiempo real desde la app, incluso en total oscuridad.",
+        icon: "👁️",
+      },
+      {
+        title: "Alertas al detectar movimiento",
+        description: "La cámara detecta movimiento y te envía una notificación al instante. Nunca te pierdas nada importante.",
+        icon: "⚡",
+      },
+      {
+        title: "Sin cables, sin complicaciones",
+        description: "Se conecta a tu red WiFi en un solo paso. Batería interna de larga duración o conexión directa a corriente para uso 24/7.",
+        icon: "📶",
+      },
+      {
+        title: "Seguridad 24/7 sin sorpresas",
+        description: "Apagado inteligente, grabación continua y almacenamiento en la app. Todo monitoreado desde tu celular sin costos extra.",
+        icon: "🛡️",
+      },
+    ],
+    specs: [
+      { label: "Resolución", value: "HD 1080p", icon: "📹" },
+      { label: "Conectividad", value: "WiFi 2.4GHz", icon: "📶" },
+      { label: "Visión nocturna", value: "Infrarrojo", icon: "🌙" },
+      { label: "Almacenamiento", value: "Micro SD / App", icon: "💾" },
+      { label: "Alimentación", value: "Batería / USB", icon: "🔋" },
+      { label: "Tamaño", value: "Ultra compacta", icon: "📏" },
+    ],
+    testimonials: [
+      { name: "Jorge R.", location: "Santiago", rating: 5, text: "La instalé en mi local y ahora puedo revisar todo desde el celular. La visión nocturna es excelente, se ve todo clarito.", avatar: "/img/cliente-1.webp" },
+      { name: "María P.", location: "Valparaíso", rating: 5, text: "Mi preocupación era la bodega. Con esta cámara la monitoreo desde la casa y me avisa cuando hay movimiento. Super práctica.", avatar: "/img/cliente-2.webp" },
+      { name: "Roberto L.", location: "Concepción", rating: 5, text: "Compré 2: una para el garage y otra para el patio. La app es súper fácil y el envío llegó rápido. Muy recomendada.", avatar: "/img/cliente-3.webp" },
+    ],
+    faqs: [
+      { question: "¿Necesita internet fijo o solo WiFi?", answer: "Solo necesita conexión WiFi. No requiere cable de datos ni internet fijo. Se conecta a tu red WiFi hogareña o de tu negocio y listo." },
+      { question: "¿Graba de noche? ¿Cómo es la visión nocturna?", answer: "Sí, tiene visión nocturna con infrarrojo. Graba y transmite en calidad HD incluso en total oscuridad. Puedes ver todo claramente desde la app." },
+      { question: "¿Cuánto dura la batería?", answer: "Tiene batería interna de larga duración que puede funcionar varias horas de forma inalámbrica, o puedes conectarla a corriente continua para uso 24/7." },
+      { question: "¿Cuánto demora el envío?", answer: "El envío demora entre 3 a 7 días hábiles dependiendo de tu región. Hacemos envíos a todo Chile sin excepción." },
+      { question: "¿El envío es realmente gratis a todo Chile?", answer: "Sí, el envío es 100% gratis a todo Chile. Sin costos ocultos, sin sorpresas. El precio que ves es el precio final que pagas." },
+      { question: "¿Tiene garantía?", answer: "Sí, todos nuestros productos tienen 3 meses de garantía. Si tienes algún problema con la cámara, nos contactas y la resolvemos." },
+    ],
+    painPoints: [
+      { icon: "🏠", title: "Hogar sin vigilancia", description: "No puedes estar en todos lados al mismo tiempo para proteger lo que más quieres" },
+      { icon: "📦", title: "Bodega desprotegida", description: "Tu bodega o local comercial necesita monitoreo constante sin contratar seguridad" },
+      { icon: "🐾", title: "Mascotas sin supervisión", description: "Quieres ver cómo están tus mascotas mientras estás fuera de casa" },
+      { icon: "👴", title: "Familiares mayores", description: "Necesitas saber que tus seres queridos están seguros cuando no puedes estar ahí" },
+    ],
+    howItWorks: [
+      { step: 1, title: "Instala", description: "Coloca la cámara donde necesites vigilancia. Es tan pequeña que pasa desapercibida." },
+      { step: 2, title: "Conecta WiFi", description: "Descarga la app gratuita, conecta la cámara a tu red WiFi en un solo paso." },
+      { step: 3, title: "Monitorea desde tu celular", description: "Ve en tiempo real desde cualquier lugar. Recibe alertas al detectar movimiento." },
+    ],
+    stock: 38,
+    status: "active",
+    tags: ["seguridad", "camara", "wifi", "vigilancia", "hogar", "negocio", "1080p", "vision nocturna"],
+    seo: {
+      title: "Mini Cámara WiFi de Seguridad | HD 1080p Visión Nocturna — $24.990",
+      description: "Protege tu hogar o negocio con mini cámara WiFi HD 1080p. Visión nocturna, detección de movimiento, app gratuita. $24.990 – Envío gratis a todo Chile – Pago contra entrega.",
+      keywords: "camara seguridad, camara wifi, camara oculta, vigilancia hogar, camara compacta, 1080p, vision nocturna, envio gratis, Chile",
+      ogImage: "/images/minicamara/hero.webp",
+    },
+    createdAt: "2026-07-18",
+    updatedAt: "2026-07-18",
   },
 ]
 

@@ -36,6 +36,7 @@ export interface ProductTestimonial {
   location: string
   rating: number
   text: string
+  avatar?: string
 }
 
 export interface ProductFAQ {

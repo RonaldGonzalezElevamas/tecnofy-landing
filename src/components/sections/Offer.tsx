@@ -83,25 +83,25 @@ export default function Offer({ product }: OfferProps) {
                   {product.price.bundle && (
                     <div className="bg-[var(--primary-light)] rounded-2xl p-6 text-center border-2 border-[var(--primary)] relative">
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--primary)] text-white text-[0.625rem] font-bold px-4 py-1 rounded-full tracking-wider">
-                        ⚡ MÁS AHORRO
+                        ⚡ 2 UNIDADES
                       </div>
                       <div className="inline-block bg-[var(--accent)] text-white text-[0.65rem] font-bold px-2 py-0.5 rounded mt-5">
                         Recomendado
                       </div>
                       <div className="mt-1">
                         <div className="text-lg text-[var(--gray-400)] line-through">
-                          ${formatPrice(product.price.normal * 2)}
+                          ${formatPrice(product.price.offer * 2)}
                         </div>
                         <div className="flex items-baseline gap-2 justify-center mt-1">
                           <span className="text-[2rem] sm:text-[2.5rem] md:text-[3rem] font-extrabold">
                             ${formatPrice(product.price.bundle.price)}
                           </span>
                           <span className="bg-[var(--red)] text-white text-xs font-bold px-2 py-0.5 rounded">
-                            -{Math.round((1 - product.price.bundle.price / (product.price.normal * 2)) * 100)}%
+                            -${formatPrice(product.price.offer * 2 - product.price.bundle.price)}
                           </span>
                         </div>
                         <p className="text-sm text-[var(--gray-400)] mt-1">
-                          ${formatPrice(Math.round(product.price.bundle.price / product.price.bundle.quantity))} c/u · Ahorras ${formatPrice(product.price.normal * 2 - product.price.bundle.price)}
+                          <strong className="text-[var(--primary)]">${formatPrice(Math.round(product.price.bundle.price / product.price.bundle.quantity))}</strong> c/u · Ahorras <strong className="text-[var(--primary)]">${formatPrice(product.price.offer * 2 - product.price.bundle.price)}</strong> vs. 2 unidades sueltas
                         </p>
                       </div>
                       <div className="flex flex-col gap-2">
