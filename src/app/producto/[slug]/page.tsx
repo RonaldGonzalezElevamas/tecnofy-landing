@@ -76,7 +76,7 @@ export default async function ProductPage({ params }: PageProps) {
       <Gallery product={product} />
       <HowItWorks product={product} />
       <Specs product={product} />
-      <VideoDemo />
+      <VideoDemo product={product} />
       <Testimonials product={product} />
       <Offer product={product} />
       <Urgency product={product} />

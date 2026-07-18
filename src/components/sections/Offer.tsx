@@ -22,7 +22,7 @@ export default function Offer({ product }: OfferProps) {
           Elige tu solución
         </h2>
         <p className="text-[var(--gray-500)] max-w-xl mx-auto mb-10">
-          Aprovecha el descuento por lanzamiento y dile adiós al dolor — envío gratis a todo Chile
+          {product.offerDescription ?? "Aprovecha el descuento por lanzamiento y dile adiós al dolor — envío gratis a todo Chile"}
         </p>
       </div>
       <div className="container mx-auto px-4 max-w-4xl">

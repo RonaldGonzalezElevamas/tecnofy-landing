@@ -9,13 +9,13 @@ export default function Problem({ product }: ProblemProps) {
     <section className="bg-[var(--gray-100)] py-16 md:py-20" id="dolor">
       <div className="container mx-auto px-4 text-center">
         <p className="text-xs font-bold text-[var(--primary)] uppercase tracking-widest mb-2">
-          ¿Te sientes identificado?
+          {product.problemLabel ?? "¿Te sientes identificado?"}
         </p>
         <h2 className="text-[1.75rem] md:text-[2.25rem] font-extrabold leading-tight mb-2">
-          El estrés y la tensión no son normales
+          {product.problemTitle ?? "El estrés y la tensión no son normales"}
         </h2>
         <p className="text-[var(--gray-500)] max-w-xl mx-auto mb-10">
-          Si pasas horas frente al computador, manejando o estudias, tus músculos te están pidiendo ayuda
+          {product.problemDescription ?? "Si pasas horas frente al computador, manejando o estudias, tus músculos te están pidiendo ayuda"}
         </p>
       </div>
       <div className="container mx-auto px-4">

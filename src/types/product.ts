@@ -89,4 +89,11 @@ export interface Product {
   galleryTitle?: string
   galleryDescription?: string
   finalCtaTitle?: string
+  problemLabel?: string
+  problemTitle?: string
+  problemDescription?: string
+  offerDescription?: string
+  videoDemo?: { src: string; poster: string; label: string }[]
+  videoDemoTitle?: string
+  videoDemoDescription?: string
 }

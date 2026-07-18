@@ -1,7 +1,7 @@
 export const SITE_CONFIG = {
   name: "Tecnofy",
   tagline: "Tecnología para tu bienestar",
-  description: "Eliminamos el dolor muscular con soluciones inteligentes de bienestar. Envíos a todo Chile con pago contra entrega.",
+  description: "Soluciones inteligentes para tu bienestar y seguridad. Envíos a todo Chile con pago contra entrega.",
   url: "https://tecnofy.cl",
   logo: "/logo.png",
   currency: "CLP",

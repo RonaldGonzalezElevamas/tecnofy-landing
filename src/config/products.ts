@@ -115,6 +115,16 @@ const products: Product[] = [
     galleryTitle: "Así es tu solución anti-dolor",
     galleryDescription: "Cada detalle está diseñado para darte el alivio muscular que necesitas",
     finalCtaTitle: "¿Listo para relajar tus músculos<br/>sin depender de nadie?",
+    problemLabel: "¿Te sientes identificado?",
+    problemTitle: "El estrés y la tensión no son normales",
+    problemDescription: "Si pasas horas frente al computador, manejando o estudias, tus músculos te están pidiendo ayuda",
+    offerDescription: "Aprovecha el descuento por lanzamiento y dile adiós al dolor — envío gratis a todo Chile",
+    videoDemoTitle: "Míralo en acción",
+    videoDemoDescription: "Un video vale más que mil fotos — mira lo fácil que es usarlo",
+    videoDemo: [
+      { src: "/video/demo-1.mp4", poster: "/video/demo-1.gif", label: "🧘 Uso en cuello y hombros" },
+      { src: "/video/demo-2.mp4", poster: "/video/demo-2.gif", label: "🔥 Modo calor + amasado" },
+    ],
   },
   {
     id: "minicamara-wifi",
@@ -230,6 +240,16 @@ const products: Product[] = [
     galleryTitle: "Así es tu cámara de seguridad",
     galleryDescription: "Compacta, discreta y con todo lo que necesitas para estar tranquilo",
     finalCtaTitle: "¿Listo para proteger tu hogar<br/>o negocio?",
+    problemLabel: "¿Te sientes identificado?",
+    problemTitle: "La seguridad de tu hogar no puede esperar",
+    problemDescription: "Si no puedes estar en todos lados, necesitas una solución que vigile por ti",
+    offerDescription: "Aprovecha el descuento por lanzamiento y protege lo que más quieres — envío gratis a todo Chile",
+    videoDemoTitle: "Míralo en acción",
+    videoDemoDescription: "Un video vale más que mil fotos — ve lo fácil que es usarla",
+    videoDemo: [
+      { src: "/video/minicamara/demo-1.mp4", poster: "/video/minicamara/demo-1.gif", label: "📹 Instalación rápida" },
+      { src: "/video/minicamara/demo-2.mp4", poster: "", label: "👁️ Visión nocturna en tiempo real" },
+    ],
   },
 ]
 

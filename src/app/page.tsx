@@ -39,7 +39,7 @@ export default function Home() {
       <Gallery product={featured} />
       <HowItWorks product={featured} />
       <Specs product={featured} />
-      <VideoDemo />
+      <VideoDemo product={featured} />
       <Testimonials product={featured} />
       <Offer product={featured} />
       <Urgency product={featured} />
