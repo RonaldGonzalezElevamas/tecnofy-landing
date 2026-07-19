@@ -4,7 +4,7 @@ import { SITE_CONFIG } from "@/config/site"
 import { trackWhatsAppClick } from "@/services/analytics"
 
 interface WhatsAppButtonProps {
-  variant?: "small" | "large" | "floating"
+  variant?: "small" | "large" | "floating" | "outline"
   message?: string
   className?: string
   productName?: string
@@ -57,6 +57,21 @@ export default function WhatsAppButton({
       >
         <svg className="w-6 h-6 fill-white flex-shrink-0" viewBox="0 0 32 32"><path d="M16.004 3.996a12.004 12.004 0 0 1 12.004 12.004 12.004 12.004 0 0 1-12.004 12.004c-2.43 0-4.734-.732-6.677-2.004l-6.328 2.004 2.004-6.196A11.92 11.92 0 0 1 4 16.004 12.004 12.004 0 0 1 16.004 3.996z"/></svg>
         Pedir ahora – Pago contra entrega
+      </a>
+    )
+  }
+
+  if (variant === "outline") {
+    return (
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={handleClick}
+        className={`inline-flex items-center justify-center gap-2 font-bold px-8 py-4 text-lg rounded-2xl border-2 border-[#25D366] text-[#25D366] hover:bg-[#25D366]/5 active:scale-[0.98] transition-all duration-200 ${className}`}
+      >
+        <svg className="w-5 h-5 fill-[#25D366] flex-shrink-0" viewBox="0 0 32 32"><path d="M16.004 3.996a12.004 12.004 0 0 1 12.004 12.004 12.004 12.004 0 0 1-12.004 12.004c-2.43 0-4.734-.732-6.677-2.004l-6.328 2.004 2.004-6.196A11.92 11.92 0 0 1 4 16.004 12.004 12.004 0 0 1 16.004 3.996z"/></svg>
+        Dudas por WhatsApp
       </a>
     )
   }

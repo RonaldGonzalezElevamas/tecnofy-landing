@@ -83,7 +83,6 @@ export default function Hero({ product }: HeroProps) {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 mt-4">
-              <WhatsAppButton variant="large" productName={product.name} />
               <Link
                 href={`/checkout?product=${product.slug}`}
                 className="inline-flex items-center justify-center gap-2 font-bold px-8 py-4 text-lg rounded-2xl bg-[var(--primary)] text-white hover:bg-[var(--primary-dark)] active:scale-[0.98] transition-all duration-200"
@@ -91,6 +90,7 @@ export default function Hero({ product }: HeroProps) {
                 Comprar ahora
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </Link>
+              <WhatsAppButton variant="outline" productName={product.name} />
             </div>
 
             <div className="flex items-center gap-2 justify-center md:justify-start mt-4 text-sm text-[var(--gray-400)]">

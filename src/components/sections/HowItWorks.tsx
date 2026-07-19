@@ -6,12 +6,38 @@ interface HowItWorksProps {
 
 export default function HowItWorks({ product }: HowItWorksProps) {
   const isCamera = product.category === "seguridad"
-  const detailImage = isCamera ? "/images/minicamara/detail-1.webp" : "/images/detail-3.webp"
-  const detailAlt = isCamera ? "Mini Cámara WiFi en uso" : "Masajeador 4D en uso"
-  const detailLabel = isCamera ? "Compacta · Versátil" : "Alivio completo · Cualquier zona"
-  const sectionLabel = isCamera ? "Cómo funciona" : "Cómo aliviar el dolor"
-  const title = isCamera ? "Protege tu espacio en 3 pasos" : "Relajación en 3 pasos"
-  const titleHighlight = isCamera ? "Protege" : "Relajación"
+  const isDental = product.category === "dental"
+
+  const detailImage = isDental
+    ? "/images/limpiador-dental/detail-1.webp"
+    : isCamera
+      ? "/images/minicamara/detail-1.webp"
+      : "/images/detail-3.webp"
+  const detailAlt = isDental
+    ? "Limpiador Dental Pro en uso"
+    : isCamera
+      ? "Mini Cámara WiFi en uso"
+      : "Masajeador 4D en uso"
+  const detailLabel = isDental
+    ? "Ultrasónico · USB · Portátil"
+    : isCamera
+      ? "Compacta · Versátil"
+      : "Alivio completo · Cualquier zona"
+  const sectionLabel = isDental
+    ? "Cómo funciona"
+    : isCamera
+      ? "Cómo funciona"
+      : "Cómo aliviar el dolor"
+  const title = isDental
+    ? "Limpia tus dientes en 3 pasos"
+    : isCamera
+      ? "Protege tu espacio en 3 pasos"
+      : "Relajación en 3 pasos"
+  const titleHighlight = isDental
+    ? "Limpia"
+    : isCamera
+      ? "Protege"
+      : "Relajación"
 
   return (
     <section className="py-16 md:py-20" id="como-funciona">
