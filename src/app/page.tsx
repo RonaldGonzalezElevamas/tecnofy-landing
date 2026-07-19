@@ -53,7 +53,7 @@ export default function Home() {
               Nuestros Productos
             </h2>
             <p className="text-[var(--gray-500)] text-center max-w-lg mx-auto mb-10">
-              Soluciones inteligentes para tu bienestar y seguridad. Envío gratis a todo Chile.
+              Soluciones inteligentes para tu bienestar, seguridad y salud dental. Envío gratis a todo Chile.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
               {products.map((product) => (

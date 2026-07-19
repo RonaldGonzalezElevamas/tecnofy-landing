@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   redirects: async () => [
     { source: "/masajeador", destination: "/producto/masajeador-4d-portatil", permanent: true },
     { source: "/minicamara", destination: "/producto/mini-camara-wifi", permanent: true },
+    { source: "/limpiador", destination: "/producto/limpiador-dental-pro", permanent: true },
   ],
 };
 

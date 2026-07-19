@@ -4,7 +4,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Catálogo | Tecnofy Chile",
-  description: "Descubre nuestros productos de bienestar y seguridad. Gadgets para eliminar el dolor muscular y proteger tu hogar. Envío gratis a todo Chile.",
+  description: "Descubre nuestros productos de bienestar, seguridad y salud dental. Gadgets para eliminar el dolor muscular, proteger tu hogar y cuidar tu sonrisa. Envío gratis a todo Chile.",
 }
 
 function formatPrice(price: number): string {
