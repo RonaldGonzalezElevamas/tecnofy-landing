@@ -274,7 +274,6 @@ const products: Product[] = [
       { src: "/images/limpiador-dental/detail-1.webp", alt: "Tecnología ultrasónica", label: "Tecnología ultrasónica" },
       { src: "/images/limpiador-dental/incluye.webp", alt: "Kit completo", label: "Kit completo incluido" },
       { src: "/images/limpiador-dental/testimonial-1.webp", alt: "Resultado real", label: "Resultado real" },
-      { src: "/images/limpiador-dental/testimonial-2.webp", alt: "Antes y después", label: "Antes y después" },
     ],
     benefits: [
       { text: "Elimina sarro en minutos" },
